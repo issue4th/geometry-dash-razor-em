@@ -1,15 +1,15 @@
 namespace SpriteKind {
     export const selector = SpriteKind.create()
+    export const Text = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.selector, assets.tile`myTile7`, function (sprite, location) {
-    tiles.loadMap(tiles.createMap(tilemap`level2`))
+    tiles.loadMap(tiles.createMap(tilemap`level12`))
     setup_Level()
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (ballrazor) {
-        if (ballrazor.tileKindAt(TileDirection.Top, assets.tile`myTile10`)) {
+        if (ballrazor.tileKindAt(TileDirection.Top, assets.tile`myTile8`) || ballrazor.tileKindAt(TileDirection.Top, assets.tile`myTile10`)) {
             if (ballrazor) {
-                ballrazor.ay = 200
                 ballrazor.vy = 200
                 selector.setImage(img`
                     6 7 . . . 7 6 
@@ -20,6 +20,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
                     7 7 6 5 6 7 7 
                     6 7 . . . 7 6 
                     `)
+                ballrazor.ay = 200
             }
         }
     }
@@ -29,9 +30,8 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite, 
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (ballrazor) {
-        if (ballrazor.tileKindAt(TileDirection.Bottom, assets.tile`myTile8`)) {
+        if (ballrazor.tileKindAt(TileDirection.Bottom, assets.tile`myTile8`) || ballrazor.tileKindAt(TileDirection.Bottom, assets.tile`myTile10`)) {
             if (ballrazor) {
-                ballrazor.ay = -200
                 ballrazor.vy = -200
                 selector.setImage(img`
                     6 7 . . . 7 6 
@@ -42,12 +42,25 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
                     7 6 6 5 5 5 7 
                     6 7 . . . 7 6 
                     `)
+                ballrazor.ay = -200
             }
         }
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function (sprite, location) {
     game.over(false)
+})
+scene.onOverlapTile(SpriteKind.selector, assets.tile`myTile21`, function (sprite, location) {
+    tiles.loadMap(tiles.createMap(tilemap`level9`))
+    setup_Level()
+})
+scene.onOverlapTile(SpriteKind.selector, assets.tile`myTile20`, function (sprite, location) {
+    tiles.loadMap(tiles.createMap(tilemap`level8`))
+    setup_Level()
+})
+scene.onOverlapTile(SpriteKind.selector, assets.tile`myTile27`, function (sprite, location) {
+    tiles.loadMap(tiles.createMap(tilemap`level2`))
+    setup_Level()
 })
 function setup_Level () {
     selector.destroy()
@@ -62,9 +75,20 @@ function setup_Level () {
         `, SpriteKind.Player)
     scene.cameraFollowSprite(ballrazor)
     tiles.placeOnRandomTile(ballrazor, assets.tile`myTile12`)
-    ballrazor.ay = 200
     ballrazor.vy = 200
+    ballrazor.ay = 200
 }
+scene.onOverlapTile(SpriteKind.selector, assets.tile`myTile22`, function (sprite, location) {
+    tiles.loadMap(tiles.createMap(tilemap`level6`))
+    setup_Level()
+})
+scene.onOverlapTile(SpriteKind.selector, assets.tile`myTile18`, function (sprite, location) {
+    tiles.loadMap(tiles.createMap(tilemap`level10`))
+    setup_Level()
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile30`, function (sprite, location) {
+    game.over(true)
+})
 let ballrazor: Sprite = null
 let selector: Sprite = null
 selector = sprites.create(img`
@@ -74,7 +98,7 @@ selector = sprites.create(img`
     4 d d d 4 
     4 4 4 4 4 
     `, SpriteKind.selector)
-controller.moveSprite(selector, 200, 200)
+controller.moveSprite(selector, 100, 100)
 scene.setBackgroundImage(img`
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
@@ -199,23 +223,19 @@ scene.setBackgroundImage(img`
     `)
 tiles.loadMap(tiles.createMap(tilemap`level1`))
 scene.cameraFollowSprite(selector)
+tiles.placeOnRandomTile(selector, assets.tile`myTile12`)
 game.onUpdate(function () {
     if (ballrazor) {
         if (ballrazor.tileKindAt(TileDirection.Center, assets.tile`myTile14`)) {
-            ballrazor.vy = -150
+            ballrazor.vy = -200
+            ballrazor.ay = -200
         } else if (ballrazor.tileKindAt(TileDirection.Center, assets.tile`myTile17`)) {
-            ballrazor.vy = 100
+            ballrazor.vy = 200
+            ballrazor.ay = 200
         } else {
             if (ballrazor.tileKindAt(TileDirection.Right, assets.tile`myTile14`) || ballrazor.tileKindAt(TileDirection.Right, assets.tile`myTile17`)) {
                 game.over(false)
             }
-        }
-    }
-})
-game.onUpdate(function () {
-    if (ballrazor) {
-        if (ballrazor.tileKindAt(TileDirection.Left, assets.tile`myTile8`) || ballrazor.tileKindAt(TileDirection.Left, assets.tile`myTile10`) || ballrazor.tileKindAt(TileDirection.Left, assets.tile`myTile11`)) {
-            game.over(false)
         }
     }
 })
