@@ -92,6 +92,10 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile42`, function (sprite, 
         tiles.setTileAt(value, assets.tile`myTile39`)
     }
 })
+scene.onOverlapTile(SpriteKind.selector, assets.tile`myTile25`, function (sprite, location) {
+    tiles.loadMap(tiles.createMap(tilemap`level22`))
+    setup_Level()
+})
 scene.onOverlapTile(SpriteKind.selector, assets.tile`myTile21`, function (sprite, location) {
     setup_Level()
 })
