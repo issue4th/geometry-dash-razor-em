@@ -274,6 +274,10 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+scene.onOverlapTile(SpriteKind.selector, assets.tile`myTile29`, function (sprite, location) {
+    tiles.loadMap(tiles.createMap(tilemap`level43`))
+    setup_Level()
+})
 scene.onOverlapTile(SpriteKind.selector, assets.tile`myTile23`, function (sprite, location) {
     tiles.loadMap(tiles.createMap(tilemap`level8`))
     setup_Level()
